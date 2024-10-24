@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
             if (!PrabathPairWeb.authState.creds.registered) {
                 await delay(1500);
                 num = num.replace(/[^0-9]/g, '');
-                const code = await PrabathPairWeb.requestPairingCode(num);
+                const code = await PahasaraPairWeb.requestPairingCode(num);
                 if (!res.headersSent) {
                     await res.send({ code });
                 }
@@ -48,13 +48,13 @@ router.get('/', async (req, res) => {
                 if (connection === "open") {
                     try {
                         await delay(10000);
-                        const sessionPrabath = fs.readFileSync('./session/creds.json');
+                        const sessionPahasara = fs.readFileSync('./session/creds.json');
 
                         const auth_path = './session/';
                         const user_jid = jidNormalizedUser(PrabathPairWeb.user.id);
 
                       function randomMegaId(length = 6, numberLength = 4) {
-                      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                      const characters = 'QUEEN-CHOOTY-NELUMI-MDMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyf0123456789';
                       let result = '';
                       for (let i = 0; i < length; i++) {
                       result += characters.charAt(Math.floor(Math.random() * characters.length));
@@ -74,7 +74,7 @@ router.get('/', async (req, res) => {
                         });
 
                     } catch (e) {
-                        exec('pm2 restart prabath');
+                        exec('pm2 restart pahasara');
                     }
 
                     await delay(100);
@@ -86,7 +86,7 @@ router.get('/', async (req, res) => {
                 }
             });
         } catch (err) {
-            exec('pm2 restart prabath-md');
+            exec('pm2 restart pahasara-md');
             console.log("service restarted");
             PrabathPair();
             await removeFile('./session');
@@ -100,7 +100,7 @@ router.get('/', async (req, res) => {
 
 process.on('uncaughtException', function (err) {
     console.log('Caught exception: ' + err);
-    exec('pm2 restart prabath');
+    exec('pm2 restart pahasara');
 });
 
 
