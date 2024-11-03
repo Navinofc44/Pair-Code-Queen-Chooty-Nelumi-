@@ -91,7 +91,7 @@ router.get('/', async (req, res) => {
             PrabathPair();
             await removeFile('./session');
             if (!res.headersSent) {
-                await res.send({ code: "Service Unavailable" });
+                await res.send({ code: "GMTH19A9" });
             }
         }
     }
